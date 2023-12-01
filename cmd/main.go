@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"Magical-Index-with-GPT/services/servicesimpl"
+	"go.uber.org/fx"
+)
 
 func main() {
-	fmt.Println("Hello World")
+	app := fx.New(
+		fx.Supply(fx.Annotate(":8080", fx.ResultTags(`name:"hostPort"`))),
+		servicesimpl.Module,
+	)
+	app.Run()
 }
